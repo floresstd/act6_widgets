@@ -11,77 +11,85 @@ class PantallaUno extends StatelessWidget {
           'Pantalla uno',
           style: TextStyle(
             color: Colors.white, // Letra blanca
-            fontSize: 25.0, // Tamaño de la letra 15
+            fontSize: 25.0, // Tamaño de la letra
           ),
         ),
-        backgroundColor: Color(0xffff2626),
+        backgroundColor: const Color(0xffff2626),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment:
               MainAxisAlignment.center, // Centra los botones verticalmente
           children: [
+            SizedBox(height: 20), // Añade un espacio entre los botones
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/pantalla2');
+                Navigator.pushNamed(context, '/ejercicio1');
               },
-              child: Text("Ver pantalla 2"),
+              child: const Text("Ejercicio uno"),
             ),
             SizedBox(height: 20), // Añade un espacio entre los botones
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context,
-                    '/pantalla3'); // Ajusta la ruta según lo que necesites
+                Navigator.pushNamed(context, '/ejercicio2');
               },
-              child: Text("Ver pantalla 3"),
+              child: const Text("Ejercicio dos"),
             ),
             SizedBox(height: 20), // Añade un espacio entre los botones
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context,
-                    '/ejercicio1'); // Ajusta la ruta según lo que necesites
+                Navigator.pushNamed(context, '/ejercicio3');
               },
-              child: Text("Ejercicio uno"),
+              child: const Text("Ejercicio tres"),
             ),
             SizedBox(height: 20), // Añade un espacio entre los botones
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context,
-                    '/ejercicio2'); // Ajusta la ruta según lo que necesites
+                Navigator.pushNamed(context, '/ejercicio4');
               },
-              child: Text("Ejercicio dos"),
+              child: const Text("Ejercicio cuatro"),
             ),
             SizedBox(height: 20), // Añade un espacio entre los botones
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context,
-                    '/ejercicio3'); // Ajusta la ruta según lo que necesites
+                Navigator.pushNamed(context, '/ejercicio5');
               },
-              child: Text("Ejercicio tres"),
+              child: const Text("Ejercicio cinco"),
             ),
             SizedBox(height: 20), // Añade un espacio entre los botones
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context,
-                    '/ejercicio4'); // Ajusta la ruta según lo que necesites
+                Navigator.pushNamed(context, '/ejercicio6');
               },
-              child: Text("Ejercicio cuatro"),
+              child: const Text("Ejercicio seis"),
             ),
             SizedBox(height: 20), // Añade un espacio entre los botones
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context,
-                    '/ejercicio5'); // Ajusta la ruta según lo que necesites
+                Navigator.pushNamed(context, '/ejercicio7');
               },
-              child: Text("Ejercicio cinco"),
+              child: const Text("Ejercicio siete"),
             ),
             SizedBox(height: 20), // Añade un espacio entre los botones
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context,
-                    '/ejercicio6'); // Ajusta la ruta según lo que necesites
+                Navigator.pushNamed(context, '/ejercicio8');
               },
-              child: Text("Ejercicio seis"),
+              child: const Text("Ejercicio ocho"),
+            ),
+            SizedBox(height: 20), // Añade un espacio entre los botones
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/ejercicio9');
+              },
+              child: const Text("Ejercicio nueve"),
+            ),
+            SizedBox(height: 20), // Añade un espacio entre los botones
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/ejercicio10');
+              },
+              child: const Text("Ejercicio diez"),
             ),
           ],
         ),

@@ -7,8 +7,25 @@ class EjercicioUno extends StatefulWidget {
   State<EjercicioUno> createState() => _EjercicioUnoState();
 }
 
-class _EjercicioUnoState extends State<EjercicioUno> {
-  int _counter = 0;
+class _EjercicioUnoState extends State<EjercicioUno>
+    with TickerProviderStateMixin {
+  bool _isPlay = false;
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +38,24 @@ class _EjercicioUnoState extends State<EjercicioUno> {
             fontSize: 25.0,
           ),
         ),
-        backgroundColor: Color(0xffde2899),
+        backgroundColor: const Color(0xffde2899),
       ),
       body: Column(
         children: [
           const SizedBox(height: 30),
-          SizedBox(height: 20),
-          const Center(
-            child: AboutListTile(
-              icon: Icon(Icons.info),
-              applicationIcon: FlutterLogo(),
-              applicationLegalese: 'Legalese',
-              applicationName: 'Flutter App',
-              applicationVersion: 'version 1.0.0',
-              aboutBoxChildren: [
-                Text('This is a text created by Flutter Mapp'),
-              ],
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _isPlay ? _controller.reverse() : _controller.forward();
+                  _isPlay = !_isPlay;
+                });
+              },
+              child: AnimatedIcon(
+                icon: AnimatedIcons.play_pause,
+                progress: _controller,
+                size: 100,
+              ),
             ),
           ),
         ],

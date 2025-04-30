@@ -1,6 +1,5 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-
-//! AnimatedAlign con estructura de Scaffold
 
 class EjercicioTres extends StatefulWidget {
   const EjercicioTres({Key? key}) : super(key: key);
@@ -9,12 +8,51 @@ class EjercicioTres extends StatefulWidget {
   State<EjercicioTres> createState() => _EjercicioTresState();
 }
 
-class _EjercicioTresState extends State<EjercicioTres> {
-  bool selected = false;
+class _EjercicioTresState extends State<EjercicioTres>
+    with SingleTickerProviderStateMixin {
+  bool _isPressed = false;
+  late AnimationController _animationController;
+  late Animation<Color?> _colorAnimation;
+  late Widget _animatedModalBarrier;
 
-  void _toggleAlignment() {
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    _colorAnimation = ColorTween(
+      begin: Colors.orangeAccent.withOpacity(0.5),
+      end: Colors.blueGrey.withOpacity(0.5),
+    ).animate(_animationController);
+
+    _animatedModalBarrier = AnimatedModalBarrier(
+      color: _colorAnimation,
+      dismissible: true,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _handlePress() {
     setState(() {
-      selected = !selected;
+      _isPressed = true;
+    });
+    _animationController.reset();
+    _animationController.forward();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        setState(() {
+          _isPressed = false;
+        });
+      }
     });
   }
 
@@ -29,30 +67,34 @@ class _EjercicioTresState extends State<EjercicioTres> {
             fontSize: 25.0,
           ),
         ),
-        backgroundColor: Color(0xffde2899),
+        backgroundColor: const Color(0xffde2899),
       ),
-      body: Column(
-        children: [
-          const SizedBox(height: 30),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: _toggleAlignment,
-            child: Center(
-              child: Container(
-                width: double.infinity,
-                height: 250.0,
-                color: Colors.blueGrey,
-                child: AnimatedAlign(
-                  alignment:
-                      selected ? Alignment.topRight : Alignment.bottomLeft,
-                  duration: const Duration(seconds: 1),
-                  curve: Curves.fastOutSlowIn,
-                  child: const FlutterLogo(size: 50.0),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 100.0,
+                width: 250.0,
+                child: Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orangeAccent,
+                      ),
+                      onPressed: _handlePress,
+                      child: const Text('Press'),
+                    ),
+                    if (_isPressed) _animatedModalBarrier,
+                  ],
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

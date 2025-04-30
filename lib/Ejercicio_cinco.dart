@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-//! AnimatedDefaultTextStyle con estructura de Scaffold
-
 class EjercicioCinco extends StatefulWidget {
   const EjercicioCinco({Key? key}) : super(key: key);
 
@@ -10,17 +8,7 @@ class EjercicioCinco extends StatefulWidget {
 }
 
 class _EjercicioCincoState extends State<EjercicioCinco> {
-  bool _first = true;
-  double _fontSize = 60;
-  Color _color = Colors.blue;
-
-  void _toggleTextStyle() {
-    setState(() {
-      _fontSize = _first ? 90 : 60;
-      _color = _first ? Color(0xff000000) : Colors.white10;
-      _first = !_first;
-    });
-  }
+  double padValue = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,30 +21,41 @@ class _EjercicioCincoState extends State<EjercicioCinco> {
             fontSize: 25.0,
           ),
         ),
-        backgroundColor: Color(0xffde2899),
+        backgroundColor: const Color(0xffde2899),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(),
-          const SizedBox(height: 40),
-          SizedBox(
-            height: 120,
-            child: AnimatedDefaultTextStyle(
-              duration: const Duration(milliseconds: 300),
-              style: TextStyle(
-                fontSize: _fontSize,
-                color: _color,
-                fontWeight: FontWeight.bold,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orangeAccent,
+                ),
+                child: const Text('Change padding'),
+                onPressed: () {
+                  setState(() {
+                    padValue = padValue == 0.0 ? 100.0 : 0.0;
+                  });
+                },
               ),
-              child: const Text('Nava'),
-            ),
+              const SizedBox(height: 20),
+              Text('Padding = $padValue'),
+              const SizedBox(height: 20),
+              AnimatedPadding(
+                padding: EdgeInsets.all(padValue),
+                duration: const Duration(seconds: 2),
+                curve: Curves.easeInOut,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 4,
+                  color: Colors.orangeAccent,
+                ),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: _toggleTextStyle,
-            child: const Text("Switch"),
-          ),
-        ],
+        ),
       ),
     );
   }
